@@ -7,7 +7,7 @@ from algorithm.optimisation import Optimiser
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-IMAGE_FILE = "image.png"
+IMAGE_FILE = "image.jpg"
 
 if __name__ == "__main__":
 
@@ -26,7 +26,7 @@ if __name__ == "__main__":
         filename=f"{uuid.uuid4()}.{extension}"
     )
 
-    output_path = os.path.join(os.getcwd(), 'image_compressed.png')
+    output_path = os.path.join(os.getcwd(), f'image_compressed.{extension}')
     with open(output_path, 'wb') as f:
         f.write(optimised_img)
 

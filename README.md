@@ -196,11 +196,11 @@ Then, we will add the primary method that'll be called when compressing images.
     ):
         if new_size_ratio < 1.0:
             img = img.resize((int(img.size[0] * new_size_ratio), int(img.size[1] * new_size_ratio)), Image.LANCZOS)
-            print(f"New shape: {self._img_shape(img=img)} - compression.py")
+            print(f"New shape: {self._img_shape(img=img)}")
 
         elif width and height:
             img = img.resize((width, height), Image.LANCZOS)
-            print(f"New shape: {self._img_shape(img=img)} - compression.py")
+            print(f"New shape: {self._img_shape(img=img)}")
 
         filename, ext = os.path.splitext(img_path)
         new_filename = f"{filename}_compressed.jpg" if to_jpg else f"{filename}_compressed{ext}"
@@ -225,7 +225,7 @@ Then, we will add the primary method that'll be called when compressing images.
 
         new_img_size = self._img_size(path=f"{self.temporary_store}{new_path}")
         new_img_bytes = self._img_bytes_array(img=img)
-        print(f"New size: {new_img_size} bytes - compression.py")
+        print(f"New size: {new_img_size} bytes")
 
         self._delete_img(path=self.temporary_store, filename=img_path)
         self._delete_img(path=self.temporary_store, filename=new_path)
@@ -303,7 +303,7 @@ from algorithm.optimisation import Optimiser
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-IMAGE_FILE = "image.png"
+IMAGE_FILE = "image.jpg"
 
 if __name__ == "__main__":
 
@@ -322,7 +322,7 @@ if __name__ == "__main__":
         filename=f"{uuid.uuid4()}.{extension}"
     )
 
-    output_path = os.path.join(os.getcwd(), 'image_compressed.png')
+    output_path = os.path.join(os.getcwd(), f'image_compressed.{extension}')
     with open(output_path, 'wb') as f:
         f.write(optimised_img)
 

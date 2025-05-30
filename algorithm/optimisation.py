@@ -15,7 +15,7 @@ class Optimiser:
         img = self.compressor._load_img_from_bytes_array(bytes_array=bytes_array)
         img_path = self.compressor._save_img(
             img=img,
-            path=self.compressor.temporary_store, 
+            path=self.compressor.temporary_store,
             filename=f"{filename}",
         )
 
@@ -41,9 +41,9 @@ class Optimiser:
             if new_img_size > self.threshold:
                 cnt += 1
                 continue
-            
+
             print(f"\n---> Optimisation complete at ratio {ratio}")
             print(f"---> New size: {new_img_size} bytes")
             break
-        
+
         return new_img_bytes

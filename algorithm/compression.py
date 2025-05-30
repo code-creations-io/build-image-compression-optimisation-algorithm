@@ -11,7 +11,7 @@ class Compressor:
     @staticmethod
     def _load_img_from_bytes_array(bytes_array: bytes = None):
         return Image.open(io.BytesIO(bytes_array))  # Fixed: removed base64 decoding
-    
+
     @staticmethod
     def _img_shape(img: JpegImageFile = None):
         return img.size
@@ -22,8 +22,8 @@ class Compressor:
 
     @staticmethod
     def _save_img(
-        img: JpegImageFile = None, 
-        path: str = "/tmp/", 
+        img: JpegImageFile = None,
+        path: str = "/tmp/",
         filename: str = "",
         quality: int = 100,
         optimize: bool = True
@@ -37,10 +37,10 @@ class Compressor:
         buff = io.BytesIO()
         img.save(buff, format='JPEG')
         return buff.getvalue()
-    
+
     @staticmethod
     def _delete_img(
-        path: str = "/tmp/", 
+        path: str = "/tmp/",
         filename: str = ""
     ):
         to_remove = f"{path}{filename}"
@@ -59,13 +59,13 @@ class Compressor:
         height: int = None,
         to_jpg: bool = True
     ):
-        if new_size_ratio < 1.0:    
+        if new_size_ratio < 1.0:
             img = img.resize((int(img.size[0] * new_size_ratio), int(img.size[1] * new_size_ratio)), Image.LANCZOS)
-            print(f"New shape: {self._img_shape(img=img)} - compression.py")
+            print(f"New shape: {self._img_shape(img=img)}")
 
         elif width and height:
             img = img.resize((width, height), Image.LANCZOS)
-            print(f"New shape: {self._img_shape(img=img)} - compression.py")
+            print(f"New shape: {self._img_shape(img=img)}")
 
         filename, ext = os.path.splitext(img_path)
         new_filename = f"{filename}_compressed.jpg" if to_jpg else f"{filename}_compressed{ext}"
@@ -73,7 +73,7 @@ class Compressor:
         try:
             new_path = self._save_img(
                 img=img,
-                path=self.temporary_store, 
+                path=self.temporary_store,
                 filename=new_filename,
                 quality=quality,
                 optimize=True
@@ -82,7 +82,7 @@ class Compressor:
             img = img.convert("RGB")
             new_path = self._save_img(
                 img=img,
-                path=self.temporary_store, 
+                path=self.temporary_store,
                 filename=new_filename,
                 quality=quality,
                 optimize=True
@@ -90,7 +90,7 @@ class Compressor:
 
         new_img_size = self._img_size(path=f"{self.temporary_store}{new_path}")
         new_img_bytes = self._img_bytes_array(img=img)
-        print(f"New size: {new_img_size} bytes - compression.py")
+        print(f"New size: {new_img_size} bytes")
 
         self._delete_img(path=self.temporary_store, filename=img_path)
         self._delete_img(path=self.temporary_store, filename=new_path)
